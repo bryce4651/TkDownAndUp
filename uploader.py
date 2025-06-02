@@ -7,14 +7,15 @@ videos = [
     #     'description': '夜阑听声FM'
     # },
     {
-        'video': 'Download/2018年的夏天究竟有怎样的魔力总能...拾起多少人的回忆.mp4',
-        'description': '夜阑听声FM #童话镇 #起风了'
+        'video': 'Download/vide/显眼宝-唐僧啃自己指甲能长生不老吗.mp4',
+        'description': '#显眼宝 #反转搞笑 #西游内传'
     }
 ]
 
 if __name__ == '__main__':
+    proxy = {'host': '172.31.190.200', 'port': '63080'}
     auth = AuthBackend(cookies='cookies.txt')
-    failed_videos = upload_videos(videos=videos, auth=auth)
+    failed_videos = upload_videos(videos=videos, auth=auth, proxy=proxy, headless=True)
 
     for video in failed_videos:  # each input video object which failed
         print(f"{video['video']} with description {video['description']} failed")
