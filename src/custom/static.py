@@ -32,7 +32,10 @@ INFO = "b bright_green"
 DEBUG = "b dark_orange"
 
 # 文件类型签名
-FILE_SIGNATURES: tuple[tuple[int, bytes, str,], ...,] = (
+# FILE_SIGNATURES: tuple[tuple[int, bytes, str,], ...,] = (
+
+# python 3.8
+FILE_SIGNATURES: tuple = (
     # 分别为偏移量(字节)、十六进制签名、后缀
     # 参考：https://en.wikipedia.org/wiki/List_of_file_signatures
     # 参考：https://www.garykessler.net/library/file_sigs.html
