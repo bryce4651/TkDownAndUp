@@ -22,7 +22,10 @@ RUN apt-get update && apt-get install -y \
     liblzma-dev \
     tk-dev \
     libffi-dev \
-    git && \
+    git \
+    tzdata && \
+    ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    dpkg-reconfigure --frontend noninteractive tzdata && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     apt-get install -y python3.12 python3.12-distutils python3.12-venv && \
