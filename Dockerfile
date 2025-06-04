@@ -2,17 +2,12 @@ FROM python:3.12-slim
 
 LABEL name="DouK-Downloader" authors="JoeanAmier" repository="https://github.com/JoeanAmier/TikTokDownloader"
 
-WORKDIR /TikTokDownloader
+WORKDIR /app
 
-COPY src /TikTokDownloader/src
-COPY locale /TikTokDownloader/locale
-COPY static /TikTokDownloader/static
-COPY license /TikTokDownloader/license
-COPY main.py /TikTokDownloader/main.py
-COPY requirements.txt /TikTokDownloader/requirements.txt
+COPY requirements.txt /app/requirements.txt
 
-RUN pip install --no-cache-dir -r /TikTokDownloader/requirements.txt
+RUN pip install --no-cache-dir -r /app/requirements.txt
 
 EXPOSE 5555
 
-CMD ["python", "main.py"]
+#CMD ["python", "main.py"]
