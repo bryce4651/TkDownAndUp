@@ -12,10 +12,13 @@ services:
   #   networks:
   #     - local_default
   web:
-    image: 172.31.140.12:8888/tiktok/TkDownAndUp:dev
-    network_mode: "host"
+    image: 172.31.140.12:8888/tiktok/tkdownup:dev
+#    network_mode: "host"
+    command:
+      - "python3"
+      - "runDownAndUp.py"
     ports:
-      - "5555:5555"
+      - "5555:5559"
     volumes:
       - ./:/app/
 #      - ./certs:/app/certs
