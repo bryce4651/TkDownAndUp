@@ -284,6 +284,8 @@ class Downloader:
                 name,
                 self.folder_mode,
             )
+            print("====> cache path:", temp_root)
+            print("====> actual path:", actual_root)
             params = {
                 "tasks": tasks,
                 "name": name,
