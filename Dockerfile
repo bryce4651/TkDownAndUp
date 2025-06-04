@@ -2,8 +2,11 @@ FROM ubuntu:22.04
 
 WORKDIR /app
 
+RUN apt-get update && apt-get install -y tzdata && \
+    ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    dpkg-reconfigure --frontend noninteractive tzdata
 # 安装依赖和 Python 3.12
-RUN apt-get update && apt-get install -y \
+RUN apt-get install -y \
     software-properties-common \
     curl \
     wget \
@@ -22,11 +25,8 @@ RUN apt-get update && apt-get install -y \
     liblzma-dev \
     tk-dev \
     libffi-dev \
-    git \
-    tzdata && \
-    ln -fs /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-    dpkg-reconfigure --frontend noninteractive tzdata && \
-    add-apt-repository ppa:deadsnakes/ppa && \
+    git
+RUN add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
     apt-get install -y python3.12 python3.12-distutils python3.12-venv && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1 && \
