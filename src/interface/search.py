@@ -1,6 +1,6 @@
 from json import dumps
 from types import SimpleNamespace
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, List
 from urllib.parse import quote
 
 from src.interface.template import API
@@ -385,7 +385,7 @@ class Search(API):
 
     def append_response_video(
         self,
-        data: list[dict],
+        data: List[dict],
         key: str,
     ) -> None:
         self.append_response([i[key] for i in data])

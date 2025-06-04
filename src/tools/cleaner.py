@@ -1,6 +1,7 @@
 from platform import system
 from re import compile
 from string import whitespace
+from typing import Dict
 
 from emoji import replace_emoji
 
@@ -48,7 +49,7 @@ class Cleaner:
         cache = {i: "" for i in whitespace[1:]}  # 补充换行符等非法字符
         return rule | cache
 
-    def set_rule(self, rule: dict[str, str], update=False):
+    def set_rule(self, rule: Dict[str, str], update=False):
         """
         设置非法字符字典
 

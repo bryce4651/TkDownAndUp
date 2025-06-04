@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from typing import Union
+from typing import Union, List
 
 from src.interface.template import APITikTok
 from src.translation import _
@@ -31,7 +31,7 @@ class InfoTikTok(APITikTok):
         # first=True,
         *args,
         **kwargs,
-    ) -> dict | list[dict]:
+    ) -> dict | List[dict]:
         self.set_referer()
         await self.run_single()
         return self.response[0] if self.response else {}

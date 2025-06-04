@@ -227,36 +227,36 @@ built with gcc 14.2.0 (crosstool-NG 1.27.0.18_7458341)
 </tr>
 <tr>
 <td align="center">accounts_urls[mark, url, tab, earliest, latest, enable]</td>
-<td align="center">list[dict[str, str, str, Any, str, bool]]</td>
+<td align="center">List[Dict[str, str, str, Any, str, bool]]</td>
 <td align="center"><a href="#supplement"><sup>3</sup></a>抖音平台：账号标识，账号链接，主页标签，最早发布日期，最晚发布日期，是否启用；作为 <code>批量下载账号作品</code> 模式选项，支持多账号，以字典格式包含六个参数</td>
 <td align="center">无</td>
 <tr>
 <td align="center">mix_urls[mark, url, enable]</td>
-<td align="center">list[dict[str, str, bool]]</td>
+<td align="center">List[Dict[str, str, bool]]</td>
 <td align="center"><a href="#supplement"><sup>3</sup></a>抖音平台：合集标识，合集链接或作品链接，是否启用；作为 <code>批量下载合集作品</code> 模式选项，支持多合集，以字典格式包含三个参数</td>
 <td align="center">无</td>
 </tr>
 <tr>
 <td align="center">owner_url[mark, url]</td>
-<td align="center">dict[str, str]</td>
+<td align="center">Dict[str, str]</td>
 <td align="center"><a href="#supplement"><sup>3</sup></a>抖音平台：当前登录 Cookie 的账号标识，账号主页链接；<code>批量下载收藏作品</code> 模式下用于获取账号信息，以字典格式包含两个参数</td>
 <td align="center">无</td>
 </tr>
 <tr>
 <td align="center">accounts_urls_tiktok[mark, url, tab, earliest, latest, enable]</td>
-<td align="center">list[dict[str, str, str, Any, str, bool]]</td>
+<td align="center">List[Dict[str, str, str, Any, str, bool]]</td>
 <td align="center"><a href="#supplement"><sup>3</sup></a>TikTok 平台；参数规则与 <code>accounts_urls</code> 一致</td>
 <td align="center">无</td>
 </tr>
 <tr>
 <td align="center">mix_urls_tiktok[mark, url, enable]</td>
-<td align="center">list[dict[str, str, bool]]</td>
+<td align="center">List[Dict[str, str, bool]]</td>
 <td align="center"><a href="#supplement"><sup>3</sup></a>TikTok 平台；参数规则与 <code>mix_urls</code> 一致</td>
 <td align="center">无</td>
 </tr>
 <tr>
 <td align="center">owner_url_tiktok[mark, url](未生效)</td>
-<td align="center">dict[str, str]</td>
+<td align="center">Dict[str, str]</td>
 <td align="center"><a href="#supplement"><sup>3</sup></a>TikTok 平台；参数规则与 <code>owner_url</code> 一致</td>
 <td align="center">无</td>
 </tr>

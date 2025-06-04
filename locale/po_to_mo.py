@@ -10,11 +10,11 @@ def scan_directory():
     ]
 
 
-def generate_map(files: list[Path]):
+def generate_map(files: List[Path]):
     return [(i, i.with_suffix(".mo")) for i in files]
 
 
-def generate_mo(maps: list[tuple[Path, Path]]):
+def generate_mo(maps: List[tuple[Path, Path]]):
     for i, j in maps:
         command = f'msgfmt --check -o "{j}" "{i}"'
         print(run(command, shell=True, text=True))

@@ -1,7 +1,7 @@
 from pathlib import Path
 from time import localtime, strftime
 from types import SimpleNamespace
-from typing import TYPE_CHECKING, Type, Any
+from typing import TYPE_CHECKING, Type, Any, List, Dict
 
 from httpx import HTTPStatusError, RequestError, TimeoutException, get
 
@@ -62,10 +62,10 @@ class Parameter:
         cookie: dict | str,
         cookie_tiktok: dict | str,
         root: str,
-        accounts_urls: list[dict],
-        accounts_urls_tiktok: list[dict],
-        mix_urls: list[dict],
-        mix_urls_tiktok: list[dict],
+        accounts_urls: List[dict],
+        accounts_urls_tiktok: List[dict],
+        mix_urls: List[dict],
+        mix_urls_tiktok: List[dict],
         folder_name: str,
         name_format: str,
         date_format: str,
@@ -118,14 +118,14 @@ class Parameter:
         self.headers_params_tiktok = PARAMS_HEADERS_TIKTOK
         self.headers_qrcode = QRCODE_HEADERS
 
-        self.accounts_urls: list[SimpleNamespace] = self.check_urls_params(
+        self.accounts_urls: List[SimpleNamespace] = self.check_urls_params(
             accounts_urls
         )
-        self.accounts_urls_tiktok: list[SimpleNamespace] = self.check_urls_params(
+        self.accounts_urls_tiktok: List[SimpleNamespace] = self.check_urls_params(
             accounts_urls_tiktok
         )
-        self.mix_urls: list[SimpleNamespace] = self.check_urls_params(mix_urls)
-        self.mix_urls_tiktok: list[SimpleNamespace] = self.check_urls_params(
+        self.mix_urls: List[SimpleNamespace] = self.check_urls_params(mix_urls)
+        self.mix_urls_tiktok: List[SimpleNamespace] = self.check_urls_params(
             mix_urls_tiktok
         )
         self.owner_url: SimpleNamespace = self.check_url_params(owner_url)
@@ -370,7 +370,7 @@ class Parameter:
         )
         return "Download"
 
-    def __check_name_format(self, name_format: str) -> list[str]:
+    def __check_name_format(self, name_format: str) -> List[str]:
         name_keys = name_format.strip().split(" ")
         if all(i in self.NAME_KEYS for i in name_keys):
             self.logger.info(f"name_format 参数已设置为 {name_format}", False)
@@ -856,7 +856,7 @@ class Parameter:
         await self.update_params()
 
     @staticmethod
-    def check_urls_params(data: list[dict]) -> list[SimpleNamespace]:
+    def check_urls_params(data: List[dict]) -> List[SimpleNamespace]:
         items = []
         for item in data:
             if not item.get("url") or not item.get("enable", True):
@@ -879,11 +879,11 @@ class Parameter:
 
     def set_urls_params(
         self,
-        accounts_urls: list[dict],
-        mix_urls: list[dict],
+        accounts_urls: List[dict],
+        mix_urls: List[dict],
         owner_url: dict,
-        accounts_urls_tiktok: list[dict],
-        mix_urls_tiktok: list[dict],
+        accounts_urls_tiktok: List[dict],
+        mix_urls_tiktok: List[dict],
         owner_url_tiktok: dict,
     ):
         if accounts_urls:
@@ -900,7 +900,7 @@ class Parameter:
         #     self.owner_url_tiktok = self.check_url_params(owner_url_tiktok)
 
     def set_cookie(
-        self, cookie: str | dict[str, str], cookie_tiktok: str | dict[str, str]
+        self, cookie: str | Dict[str, str], cookie_tiktok: str | Dict[str, str]
     ):
         if cookie:
             self.cookie_dict, self.cookie_str = self.__check_cookie(cookie)
@@ -915,7 +915,7 @@ class Parameter:
             self.cookie_tiktok_state: bool = self.__check_cookie_state(True)
             self.__update_download_headers_tiktok()
 
-    def set_general_params(self, data: dict[str, Any]) -> None:
+    def set_general_params(self, data: Dict[str, Any]) -> None:
         for i, j in data.items():
             if j is not None:
                 self.__CHECK[i](j)

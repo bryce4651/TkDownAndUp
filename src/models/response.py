@@ -1,11 +1,12 @@
 from datetime import datetime
+from typing import List
 
 from pydantic import BaseModel, computed_field
 
 
 class DataResponse(BaseModel):
     message: str
-    data: dict | list[dict] | None = None
+    data: dict | List[dict] | None = None
     params: dict | None
 
     @computed_field

@@ -3,7 +3,7 @@ from pathlib import Path
 from platform import system
 from time import time
 from types import SimpleNamespace
-from typing import TYPE_CHECKING, Callable, Union, Any
+from typing import TYPE_CHECKING, Callable, Union, Any, List
 
 from pydantic import ValidationError
 
@@ -365,7 +365,7 @@ class TikTok:
 
     async def __account_detail_batch(
             self,
-            accounts: list[SimpleNamespace],
+            accounts: List[SimpleNamespace],
             params_name: str,
             tiktok: bool,
     ) -> None:
@@ -503,7 +503,7 @@ class TikTok:
 
     async def __account_detail_handle(
             self,
-            links: list[str],
+            links: List[str],
             tiktok=False,
             *args,
             **kwargs,
@@ -679,7 +679,7 @@ class TikTok:
             self,
             cookie: str = None,
             proxy: str = None,
-            sec_user_id: Union[str, list[str]] = ...,
+            sec_user_id: Union[str, List[str]] = ...,
     ):
         return await Info(
             self.parameter,
@@ -705,7 +705,7 @@ class TikTok:
 
     async def _batch_process_detail(
             self,
-            data: list[dict],
+            data: List[dict],
             api: bool = False,
             earliest: date = None,
             latest: date = None,
@@ -842,7 +842,7 @@ class TikTok:
 
     async def download_detail_batch(
             self,
-            data: list[dict],
+            data: List[dict],
             type_: str = "batch",
             tiktok: bool = False,
             mode: str = "",
@@ -1033,7 +1033,7 @@ class TikTok:
 
     async def _handle_detail(
             self,
-            ids: list[str],
+            ids: List[str],
             tiktok: bool,
             record,
             api=False,
@@ -1071,7 +1071,7 @@ class TikTok:
             self,
             tiktok: bool,
             processor: Callable,
-            ids: list[str],
+            ids: List[str],
             record,
             api=False,
             source=False,
@@ -1197,7 +1197,7 @@ class TikTok:
             await self.downloader.run(download_tasks, type_="live", tiktok=True)
         self.logger.info(_("已退出获取直播推流地址(TikTok)模式"))
 
-    def _generate_live_params(self, rid: bool, ids: list[list]) -> list[dict]:
+    def _generate_live_params(self, rid: bool, ids: List[list]) -> List[dict]:
         if not ids:
             self.console.warning(
                 _("提取 web_rid 或者 room_id 失败！"),
@@ -1208,7 +1208,7 @@ class TikTok:
         else:
             return [{"room_id": id_[0], "sec_user_id": id_[1]} for id_ in ids]
 
-    def show_live_info(self, data: list[dict]) -> list[tuple]:
+    def show_live_info(self, data: List[dict]) -> List[tuple]:
         download_tasks = []
         for item in data:
             self.console.print(_("直播标题:"), item["title"])
@@ -1221,7 +1221,7 @@ class TikTok:
             self.show_live_stream_url(item, download_tasks)
         return [i for i in download_tasks if isinstance(i, tuple)]
 
-    def show_live_info_tiktok(self, data: list[dict]) -> list[tuple]:
+    def show_live_info_tiktok(self, data: List[dict]) -> List[tuple]:
         download_tasks = []
         for item in data:
             if item["message"]:
@@ -1383,7 +1383,7 @@ class TikTok:
             else:
                 self.logger.warning(_("采集评论数据失败"))
 
-    async def save_comment(self, detail_id: str, data: list[dict]) -> list:
+    async def save_comment(self, detail_id: str, data: List[dict]) -> list:
         root, params, logger = self.record.run(self.parameter, type_="comment")
         async with logger(
                 root,
@@ -1506,14 +1506,14 @@ class TikTok:
                 id_,
             )
 
-    async def mix_inquire_collection(self) -> list[str]:
+    async def mix_inquire_collection(self) -> List[str]:
         data = await CollectsMix(self.parameter).run()
         if not any(data):
             return []
         data = self.extractor.extract_mix_collect_info(data)
         return self.input_download_index(data)
 
-    def input_download_index(self, data: list[dict]) -> list[str] | None:
+    def input_download_index(self, data: List[dict]) -> List[str] | None:
         if d := self.__input_download_index(
                 data,
                 _("收藏合集"),
@@ -1522,10 +1522,10 @@ class TikTok:
 
     def __input_download_index(
             self,
-            data: list[dict],
+            data: List[dict],
             text=_("收藏合集"),
             key="title",
-    ) -> list[dict] | None:
+    ) -> List[dict] | None:
         self.console.print(_("{text}列表：").format(text=_(text)))
         for i, j in enumerate(data, start=1):
             self.console.print(f"{i}. {j[key]}")
@@ -1583,8 +1583,8 @@ class TikTok:
     async def __mix_handle(
             self,
             mix_id: bool,
-            ids: list[str],
-            mix_title_map: list[str] = None,
+            ids: List[str],
+            mix_title_map: List[str] = None,
             tiktok=False,
     ):
         count = SimpleNamespace(time=time(), success=0, failed=0)
@@ -1626,7 +1626,7 @@ class TikTok:
 
     async def __mix_batch(
             self,
-            mix: list[SimpleNamespace],
+            mix: List[SimpleNamespace],
             params_name: str,
             tiktok: bool,
     ):
@@ -1812,7 +1812,7 @@ class TikTok:
 
     async def _deal_user_data(
             self,
-            data: list[dict],
+            data: List[dict],
             source=False,
     ):
         if not any(data):
@@ -1842,7 +1842,7 @@ class TikTok:
     def _enter_search_criteria(
             self,
             field: str,
-    ) -> list[Any]:
+    ) -> List[Any]:
         criteria = self.console.input(
             _("请输入搜索参数；参数之间使用两个空格分隔({field})：\n").format(
                 field=field
@@ -1854,7 +1854,7 @@ class TikTok:
         return criteria.split("  ") if criteria else []
 
     @staticmethod
-    def fill_search_criteria(criteria: list[Any]) -> list[Any]:
+    def fill_search_criteria(criteria: List[Any]) -> List[Any]:
         if len(criteria) == 1:
             criteria.append(1)
         while len(criteria) < 9:
@@ -2292,7 +2292,7 @@ class TikTok:
 
     async def handle_detail_unofficial(
             self,
-            ids: list[str],
+            ids: List[str],
             *args,
             **kwargs,
     ):

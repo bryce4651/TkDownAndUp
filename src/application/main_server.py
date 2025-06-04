@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 
 from fastapi import Depends, FastAPI, Header, HTTPException
 from fastapi.responses import RedirectResponse
@@ -692,7 +692,7 @@ class APIServer(TikTok):
     @staticmethod
     def success_response(
         extract,
-        data: dict | list[dict],
+        data: dict | List[dict],
         message: str = None,
     ):
         return DataResponse(

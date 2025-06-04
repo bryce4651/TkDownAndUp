@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Dict
 
 
 class AccountUrl(BaseModel):
@@ -65,7 +65,7 @@ class Settings(BaseModel):
     accounts_urls_tiktok: List[AccountUrl] = []
     mix_urls: List[MixUrl] = []
     mix_urls_tiktok: List[MixUrl] = []
-    owner_url: OwnerUrl | dict[str, str] = {}
+    owner_url: OwnerUrl | Dict[str, str] = {}
     owner_url_tiktok: None = None
     root: str | None = None
     folder_name: str | None = None

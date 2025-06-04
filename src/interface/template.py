@@ -1,5 +1,5 @@
 from time import time
-from typing import TYPE_CHECKING, Callable, Coroutine, Type, Union
+from typing import TYPE_CHECKING, Callable, Coroutine, Type, Union, List
 from urllib.parse import quote, urlencode
 
 from httpx import AsyncClient, get, post
@@ -461,7 +461,7 @@ class API:
 
     def append_response(
         self,
-        data: list[dict],
+        data: List[dict],
         start: int = None,
         end: int = None,
         *args,

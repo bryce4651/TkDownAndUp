@@ -2,6 +2,7 @@ from random import choice, randint, random
 from re import compile
 from time import time
 from urllib.parse import quote, urlencode
+from typing import Union, List
 
 from gmssl import func, sm3
 
@@ -165,7 +166,7 @@ class ABogus:
         a.append(e)
         return self.rc4_encrypt(self.from_char_code(*a), "y")
 
-    def generate_ua_code(self, user_agent: str) -> list[int]:
+    def generate_ua_code(self, user_agent: str) -> List[int]:
         u = self.rc4_encrypt(user_agent, self.__ua_key)
         u = self.generate_result(u, "s3")
         return self.sum(u)
@@ -497,16 +498,16 @@ class ABogus:
             a.append(cls.__arguments[2] >> j)
         return [int(i) & 255 for i in a]
 
-    def generate_method_code(self, method: str = "GET") -> list[int]:
+    def generate_method_code(self, method: str = "GET") -> List[int]:
         return self.sm3_to_array(self.sm3_to_array(method + self.__end_string))
         # return self.sum(self.sum(method + self.__end_string))
 
-    def generate_params_code(self, params: str) -> list[int]:
+    def generate_params_code(self, params: str) -> List[int]:
         return self.sm3_to_array(self.sm3_to_array(params + self.__end_string))
         # return self.sum(self.sum(params + self.__end_string))
 
     @classmethod
-    def sm3_to_array(cls, data: str | list) -> list[int]:
+    def sm3_to_array(cls, data: str | list) -> List[int]:
         """
         代码参考: https://github.com/Johnserf-Seed/f2/blob/main/f2/utils/abogus.py
 

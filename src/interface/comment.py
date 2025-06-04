@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Callable, Coroutine, Type, Union
+from typing import TYPE_CHECKING, Callable, Coroutine, Type, Union, List
 
 from src.extract import Extractor
 from src.interface.template import API
@@ -68,7 +68,7 @@ class Comment(API):
         headers: dict = None,
         *args,
         **kwargs,
-    ) -> list[dict]:
+    ) -> List[dict]:
         return await super().run(
             referer,
             single_page,

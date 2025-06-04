@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from typing import Union
+from typing import Union, List
 
 from src.interface.template import API
 from src.translation import _
@@ -15,7 +15,7 @@ class Info(API):
         params: Union["Parameter", "Params"],
         cookie: str = "",
         proxy: str = None,
-        sec_user_id: Union[str, list[str], tuple[str]] = ...,
+        sec_user_id: Union[str, List[str], tuple[str]] = ...,
         *args,
         **kwargs,
     ):
@@ -33,7 +33,7 @@ class Info(API):
         first=True,
         *args,
         **kwargs,
-    ) -> dict | list[dict]:
+    ) -> dict | List[dict]:
         self.set_referer()
         await self.run_single()
         if first:

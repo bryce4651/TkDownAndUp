@@ -3,6 +3,7 @@ from shutil import which
 from platform import system
 from subprocess import Popen, run
 from textwrap import dedent
+from typing import List
 
 __all__ = ["FFMPEG"]
 
@@ -83,7 +84,7 @@ class FFMPEG:
     def __check_ffmpeg_path(self, path: Path):
         return self.__check_system_ffmpeg() or self.__check_system_ffmpeg(path)
 
-    def download(self, data: list[tuple], proxy, user_agent):
+    def download(self, data: List[tuple], proxy, user_agent):
         for u, p in data:
             command = self.__generate_command(
                 u,

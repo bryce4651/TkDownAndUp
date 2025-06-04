@@ -6,7 +6,7 @@ from shutil import move
 from time import time
 from types import SimpleNamespace
 from typing import TYPE_CHECKING
-from typing import Union
+from typing import Union, List
 
 from aiofiles import open
 from httpx import HTTPStatusError
@@ -127,7 +127,7 @@ class Downloader:
 
     async def run(
         self,
-        data: Union[list[dict], list[tuple]],
+        data: Union[List[dict], List[tuple]],
         type_: str,
         tiktok=False,
         **kwargs,
@@ -149,7 +149,7 @@ class Downloader:
 
     async def run_batch(
         self,
-        data: list[dict],
+        data: List[dict],
         tiktok: bool,
         mode: str = "",
         mark: str = "",
@@ -179,7 +179,7 @@ class Downloader:
             tiktok=tiktok,
         )
 
-    async def run_general(self, data: list[dict], tiktok: bool, **kwargs):
+    async def run_general(self, data: List[dict], tiktok: bool, **kwargs):
         root = self.storage_folder(mode="detail")
         await self.batch_processing(
             data,
@@ -189,7 +189,7 @@ class Downloader:
 
     async def run_music(
         self,
-        data: list[dict],
+        data: List[dict],
         **kwargs,
     ):
         root = self.root.joinpath("Music")
@@ -218,7 +218,7 @@ class Downloader:
 
     async def run_live(
         self,
-        data: list[tuple],
+        data: List[tuple],
         tiktok=False,
         **kwargs,
     ):
@@ -236,7 +236,7 @@ class Downloader:
 
     def generate_live_commands(
         self,
-        data: list[tuple],
+        data: List[tuple],
         commands: list,
         suffix: str = "mp4",
     ):
@@ -266,7 +266,7 @@ class Downloader:
             self.headers["User-Agent"],
         )
 
-    async def batch_processing(self, data: list[dict], root: Path, **kwargs):
+    async def batch_processing(self, data: List[dict], root: Path, **kwargs):
         count = SimpleNamespace(
             downloaded_image=set(),
             skipped_image=set(),
@@ -327,7 +327,7 @@ class Downloader:
 
     async def downloader_chart(
         self,
-        tasks: list[tuple],
+        tasks: List[tuple],
         count: SimpleNamespace,
         progress: Progress,
         semaphore: Semaphore = None,

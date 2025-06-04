@@ -1,5 +1,5 @@
 from re import compile
-from typing import TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Union, List
 from urllib.parse import parse_qs, unquote, urlparse
 
 from .requester import Requester
@@ -65,7 +65,7 @@ class Extractor:
         text: str,
         type_="detail",
         proxy: str = None,
-    ) -> Union[list[str], tuple[bool, list[str]], str]:
+    ) -> Union[List[str], tuple[bool, List[str]], str]:
         text = await self.requester.run(
             text,
             proxy,
@@ -86,13 +86,13 @@ class Extractor:
     def detail(
         self,
         urls: str,
-    ) -> list[str]:
+    ) -> List[str]:
         return self.__extract_detail(urls)
 
     def user(
         self,
         urls: str,
-    ) -> list[str]:
+    ) -> List[str]:
         link = self.extract_info(self.account_link, urls, 1)
         share = self.extract_info(self.account_share, urls, 1)
         return link + share
@@ -100,7 +100,7 @@ class Extractor:
     def mix(
         self,
         urls: str,
-    ) -> [bool, list[str]]:
+    ) -> [bool, List[str]]:
         if detail := self.__extract_detail(urls):
             return False, detail
         link = self.extract_info(self.mix_link, urls, 1)
@@ -121,7 +121,7 @@ class Extractor:
     def __extract_detail(
         self,
         urls: str,
-    ) -> list[str]:
+    ) -> List[str]:
         link = self.extract_info(self.detail_link, urls, 1)
         share = self.extract_info(self.detail_share, urls, 1)
         account = self.extract_info(self.account_link, urls, 2)
@@ -131,7 +131,7 @@ class Extractor:
         return link + share + account + search + discover + channel
 
     @staticmethod
-    def extract_sec_user_id(urls: list[str]) -> list[list]:
+    def extract_sec_user_id(urls: List[str]) -> List[list]:
         data = []
         for url in urls:
             url = urlparse(url)
@@ -142,7 +142,7 @@ class Extractor:
         return data
 
     @staticmethod
-    def extract_info(pattern, urls: str, index=1) -> list[str]:
+    def extract_info(pattern, urls: str, index=1) -> List[str]:
         result = pattern.finditer(urls)
         return [i for i in (i.group(index) for i in result) if i] if result else []
 
@@ -176,8 +176,8 @@ class ExtractorTikTok(Extractor):
         type_="detail",
         proxy: str = None,
     ) -> Union[
-        list[str],
-        tuple[bool, list[str]],
+        List[str],
+        tuple[bool, List[str]],
         str,
     ]:
         text = await self.requester.run(
@@ -200,13 +200,13 @@ class ExtractorTikTok(Extractor):
     async def detail(
         self,
         urls: str,
-    ) -> list[str]:
+    ) -> List[str]:
         return self.__extract_detail(urls)
 
     async def user(
         self,
         urls: str,
-    ) -> list[str]:
+    ) -> List[str]:
         link = self.extract_info(self.account_link, urls, 1)
         link = [await self.__get_html_data(i, self.SEC_UID) for i in link]
         return [i for i in link if i]
@@ -215,7 +215,7 @@ class ExtractorTikTok(Extractor):
         self,
         urls: str,
         index=1,
-    ) -> list[str]:
+    ) -> List[str]:
         link = self.extract_info(self.detail_link, urls, index)
         return link
 
@@ -234,7 +234,7 @@ class ExtractorTikTok(Extractor):
     async def mix(
         self,
         urls: str,
-    ) -> [bool, list[str]]:
+    ) -> [bool, List[str]]:
         detail = self.__extract_detail(urls, index=0)
         detail = [await self.__get_html_data(i, self.MIX_ID) for i in detail]
         detail = [i for i in detail if i]
@@ -245,7 +245,7 @@ class ExtractorTikTok(Extractor):
     async def live(
         self,
         urls: str,
-    ) -> [bool, list[str]]:
+    ) -> [bool, List[str]]:
         link = self.extract_info(self.live_link, urls, 0)
         link = [await self.__get_html_data(i, self.ROOD_ID) for i in link]
         return True, [i for i in link if i]

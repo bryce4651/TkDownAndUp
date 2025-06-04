@@ -37,7 +37,7 @@ class __TikTokAccount:
             ids.append(self.__extract_id_data(data))
         return [i for i in ids if all(i)]
 
-    def __extract_id_data(self, html: str) -> (str, str, list[str]):
+    def __extract_id_data(self, html: str) -> (str, str, List[str]):
         html_tree = HTML(html)
         urls = html_tree.xpath(self.urls)
         uid = self.__extract_uid(html_tree.xpath(self.uid))

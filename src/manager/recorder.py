@@ -1,7 +1,7 @@
 from pathlib import Path
 from platform import system
 from re import compile
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List
 
 from ..custom import (
     ERROR,
@@ -52,7 +52,7 @@ class __DownloadRecorder:
         if self.switch:
             self.record.add(id_)
 
-    def __extract_ids(self, ids: str) -> list[str]:
+    def __extract_ids(self, ids: str) -> List[str]:
         ids = ids.split()
         result = []
         for i in ids:
@@ -141,7 +141,7 @@ class DownloadRecorder:
             ids = self.__extract_ids(ids)
             await self.database.delete_download_data(ids)
 
-    def __extract_ids(self, ids: str) -> list[str]:
+    def __extract_ids(self, ids: str) -> List[str]:
         ids = ids.split()
         result = []
         for i in ids:

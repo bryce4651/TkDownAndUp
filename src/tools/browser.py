@@ -1,7 +1,8 @@
 from contextlib import suppress
 from sys import platform
 from types import SimpleNamespace
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List, Dict
+
 
 from rookiepy import (
     arc,
@@ -105,8 +106,8 @@ class Browser:
     def get(
         self,
         browser: str | int,
-        domains: list[str],
-    ) -> dict[str, str]:
+        domains: List[str],
+    ) -> Dict[str, str]:
         if not (browser := self.__browser_object(browser)):
             self.console.warning(
                 _("浏览器名称或序号输入错误！"),
