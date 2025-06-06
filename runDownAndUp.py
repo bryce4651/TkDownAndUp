@@ -36,6 +36,8 @@ async def run_task(downloader: TikTokDownloader, sec_user_id: str, cookie_file: 
                 'video': f'Download/{filename}',
                 'description': data["desc"]
             }
+            if not os.path.exists(f'Download/{filename}'):
+                continue
             auth = AuthBackend(cookies_str=cookie_file)
             failed_videos = upload_videos(
                 videos=[video], auth=auth,

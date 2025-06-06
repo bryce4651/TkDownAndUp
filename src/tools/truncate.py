@@ -22,14 +22,15 @@ def trim_string(s: str, length: int = 64) -> str:
 
 
 def beautify_string(s: str, length: int = 64) -> str:
-    count = 0
-    for char in s:
-        count += 2 if is_chinese_char(char) else 1
-        if count > length:
-            break
-    else:
-        return s
-    length //= 2
-    start = truncate_string(s, length)
-    end = truncate_string(s[::-1], length)[::-1]
-    return f"{start}...{end}"
+    return s
+    # count = 0
+    # for char in s:
+    #     count += 2 if is_chinese_char(char) else 1
+    #     if count > length:
+    #         break
+    # else:
+    #     return s
+    # length //= 2
+    # start = truncate_string(s, length)
+    # end = truncate_string(s[::-1], length)[::-1]
+    # return f"{start}...{end}"
