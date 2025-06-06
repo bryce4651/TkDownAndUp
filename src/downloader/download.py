@@ -29,7 +29,7 @@ from ..custom import MAX_WORKERS
 from ..custom import (
     PROGRESS,
 )
-from ..tools import CacheError
+from ..tools import CacheError, ExistedError
 from ..tools import Retry
 from ..tools import DownloaderError
 from ..tools import beautify_string
@@ -452,7 +452,8 @@ class Downloader:
             )
             self.log.info(f"文件路径: {p.resolve()}", False)
             skipped.add(id_)
-            return
+            raise ExistedError
+            # return
         tasks.append(
             (
                 item["downloads"],

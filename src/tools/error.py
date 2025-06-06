@@ -13,6 +13,18 @@ class DownloaderError(Exception):
         return f"DownloaderError: {self.message}"
 
 
+class ExistedError(Exception):
+    def __init__(
+            self,
+            message: str = "",
+    ):
+        self.message = message or _("资源文件已存在，跳过")
+        super().__init__(self.message)
+
+    def __str__(self):
+        return f"ExistedError: {self.message}"
+
+
 class CacheError(Exception):
     def __init__(self, message: str):
         super().__init__(message)

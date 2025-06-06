@@ -8,7 +8,7 @@ from src.application import TikTokDownloader
 from src.application import APIServer
 from src.models import Account
 from src.config import Settings
-from src.tools import ColorfulConsole
+from src.tools import ColorfulConsole, ExistedError
 from src.custom import PROJECT_ROOT
 
 from tiktok_uploader.upload import upload_videos
@@ -28,7 +28,10 @@ async def run_task(downloader: TikTokDownloader, sec_user_id: str, cookie_file: 
             return
         for data in resp.data:
             _id = data["id"]
-            res = await api_server.detail_inquire([_id])
+            try:
+                res = await api_server.detail_inquire([_id])
+            except ExistedError:
+                continue
             await asyncio.sleep(3)
             filename = f"{data['type']}-{data['nickname']}-{data['desc']}.mp4"
             print("====> filename:", filename)

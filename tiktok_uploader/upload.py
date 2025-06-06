@@ -13,6 +13,7 @@ import time
 import pytz
 import datetime
 import threading
+import traceback
 
 from selenium.webdriver.common.by import By
 
@@ -221,7 +222,7 @@ def upload_videos(
             )
         except Exception as exception:
             logger.error("Failed to upload %s", path)
-            logger.error(exception)
+            traceback.print_exc()
             failed.append(video)
 
         if on_complete is callable:  # calls the user-specified on-complete function
