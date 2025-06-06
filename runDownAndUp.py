@@ -7,12 +7,15 @@ from asyncio import run
 from src.application import TikTokDownloader
 from src.application import APIServer
 from src.models import Account
+from src.config import Settings
+from src.tools import ColorfulConsole
+from src.custom import PROJECT_ROOT
 
 from tiktok_uploader.upload import upload_videos
 from tiktok_uploader.auth import AuthBackend
 
+
 async def run_task(downloader: TikTokDownloader, sec_user_id: str, cookie_file: str = "cookies.txt"):
-    pass
     try:
         acc = Account(
             sec_user_id=sec_user_id,
@@ -53,23 +56,28 @@ async def run_task(downloader: TikTokDownloader, sec_user_id: str, cookie_file: 
     ):
         return
 
-async def main():
+
+async def run_job(data: dict):
     async with TikTokDownloader() as downloader:
         downloader.project_info()
         downloader.check_config()
         await downloader.check_settings(
             False,
         )
-        print(downloader.parameter.tiktok_account_settings)
-        tasks = [
-            run_task(downloader, data["sec_user_id"], data["cookie_file"])
-            for data in downloader.parameter.tiktok_account_settings
-        ]
-        try:
-            await asyncio.gather(*tasks)  # 并发运行
-        except (KeyboardInterrupt, CancelledError):
-            print("取消并退出程序")
-        return
+        await run_task(downloader, data["sec_user_id"], data["cookie_file"])
+
+
+async def main():
+    tasks = [
+        run_job(data)
+        for data in Settings(PROJECT_ROOT, ColorfulConsole()).read()["tiktok_account_settings"]
+    ]
+    try:
+        await asyncio.gather(*tasks)  # 并发运行
+    except (KeyboardInterrupt, CancelledError):
+        print("取消并退出程序")
+    return
+
 
 if __name__ == "__main__":
     run(main())

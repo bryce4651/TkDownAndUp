@@ -9,7 +9,6 @@ __pycache__/
 /Log/
 /Live/
 *.db
-*.json
 *.log
 *.xlsx
 *.csv
