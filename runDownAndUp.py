@@ -29,7 +29,7 @@ async def run_task(downloader: TikTokDownloader, sec_user_id: str, cookie_file: 
         for data in resp.data:
             _id = data["id"]
             res = await api_server.detail_inquire([_id])
-            await asyncio.sleep(1)
+            await asyncio.sleep(3)
             filename = f"{data['type']}-{data['nickname']}-{data['desc']}.mp4"
             print("====> filename:", filename)
             video = {

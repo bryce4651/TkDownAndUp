@@ -5,7 +5,7 @@ MAX_WORKERS = 4
 DESCRIPTION_LENGTH = 64
 
 # 文件名称最大长度限制
-MAX_FILENAME_LENGTH = 128
+MAX_FILENAME_LENGTH = 256
 
 # 非法字符替换规则，key 为替换前的文本，value 为替换后的文本
 TEXT_REPLACEMENT = {
