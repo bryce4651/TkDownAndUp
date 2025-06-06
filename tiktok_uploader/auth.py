@@ -43,7 +43,7 @@ class AuthBackend:
             raise InsufficientAuth()
 
         self.cookies = self.get_cookies(path=cookies) if cookies else []
-        self.cookies += self.get_cookies(cookies_str=cookies_str) if cookies_str else []
+        self.cookies += self.get_cookies_str(path=cookies_str) if cookies_str else []
         self.cookies += cookies_list if cookies_list else []
         self.cookies += [{"name": "sessionid", "value": sessionid}] if sessionid else []
 
@@ -122,6 +122,35 @@ class AuthBackend:
                 return_cookies[-1]["expiry"] = split[4]
         return return_cookies
 
+    def get_cookies_str(self, path: str = None) -> dict:
+        """
+        Gets cookies from the passed file using the netscape standard
+        """
+        if path:
+            with open(path, "r", encoding="utf-8") as file:
+                lines = file.read().strip("\n").split("\n")
+                if len(lines) == 1:
+                    lines = lines[0].split(";")
+        else:
+            lines = []
+
+        return_cookies = []
+        for line in lines:
+            split = line.strip().split("=", 1)
+            split = [x.strip() for x in split]
+
+            return_cookies.append(
+                {
+                    "name": split[0],
+                    "value": split[1],
+                    # "domain": split[0],
+                    # "path": split[2],
+                }
+            )
+
+            # if split[4]:
+            #     return_cookies[-1]["expiry"] = split[4]
+        return return_cookies
 
 def login_accounts(driver=None, accounts=[(None, None)], *args, **kwargs) -> list:
     """

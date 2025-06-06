@@ -113,6 +113,7 @@ class Settings:
             "webcast_language": "zh-Hans",
             "device_id": "",
         },
+        "tiktok_account_settings": [],
     }  # 默认配置
     compatible = (
         (

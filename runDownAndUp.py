@@ -1,3 +1,5 @@
+import asyncio
+import os
 import time
 from asyncio import CancelledError
 from asyncio import run
@@ -9,6 +11,47 @@ from src.models import Account
 from tiktok_uploader.upload import upload_videos
 from tiktok_uploader.auth import AuthBackend
 
+async def run_task(downloader: TikTokDownloader, sec_user_id: str, cookie_file: str = "cookies.txt"):
+    pass
+    try:
+        acc = Account(
+            sec_user_id=sec_user_id,
+            # count=10,
+        )
+        api_server = APIServer(downloader.parameter, downloader.database)
+        resp = await api_server.handle_account(acc)
+        if len(resp.data) == 0:
+            print("未找到任何作品")
+            return
+        for data in resp.data:
+            _id = data["id"]
+            res = await api_server.detail_inquire([_id])
+            await asyncio.sleep(1)
+            filename = f"{data['type']}-{data['nickname']}-{data['desc']}.mp4"
+            print("====> filename:", filename)
+            video = {
+                'video': f'Download/{filename}',
+                'description': data["desc"]
+            }
+            auth = AuthBackend(cookies_str=cookie_file)
+            failed_videos = upload_videos(
+                videos=[video], auth=auth,
+                # proxy=proxy,
+                headless=True)
+
+            for video in failed_videos:  # each input video object which failed
+                print(f"{video['video']} with description {video['description']} failed")
+            if os.path.exists(filename):
+                os.remove(filename)
+                print("文件已删除:", filename)
+            else:
+                print("文件不存在:", filename)
+            await asyncio.sleep(24 * 3600)
+    except (
+            KeyboardInterrupt,
+            CancelledError,
+    ):
+        return
 
 async def main():
     async with TikTokDownloader() as downloader:
@@ -17,45 +60,16 @@ async def main():
         await downloader.check_settings(
             False,
         )
+        print(downloader.parameter.tiktok_account_settings)
+        tasks = [
+            run_task(downloader, data["sec_user_id"], data["cookie_file"])
+            for data in downloader.parameter.tiktok_account_settings
+        ]
         try:
-            acc = Account(
-                sec_user_id="MS4wLjABAAAAIqOcUlkHRYn3R9QrxuXwCrQbarxTKLqYNDByv_hGbGU",
-                count=10,
-            )
-            api_server = APIServer(downloader.parameter, downloader.database)
-            resp = await api_server.handle_account(acc)
-            if len(resp.data) == 0:
-                print("未找到任何作品")
-                return
-            i = 0
-            for data in resp.data:
-                i += 1
-                _id = data["id"]
-                res = await api_server.detail_inquire([_id])
-                print("====>", res)
-                time.sleep(10)
-                filename = f"{data['type']}-{data['nickname']}-{data['desc']}.mp4"
-                print("====> filename:", filename)
-                video = {
-                    'video': f'Download/{filename}',
-                    'description': data["desc"]
-                }
-                auth = AuthBackend(cookies='cookies.txt')
-                failed_videos = upload_videos(
-                    videos=[video], auth=auth,
-                    # proxy=proxy,
-                    headless=True)
-
-                for video in failed_videos:  # each input video object which failed
-                    print(f"{video['video']} with description {video['description']} failed")
-                if i >= 3:
-                    return
-        except (
-                KeyboardInterrupt,
-                CancelledError,
-        ):
-            return
-
+            await asyncio.gather(*tasks)  # 并发运行
+        except (KeyboardInterrupt, CancelledError):
+            print("取消并退出程序")
+        return
 
 if __name__ == "__main__":
     run(main())

@@ -15,7 +15,6 @@ __pycache__/
 *.csv
 *.spec
 *.ini
-*.txt
 !.github/workflows/*.yaml
 /venv
 /Download-bak
