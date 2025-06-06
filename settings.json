@@ -1,0 +1,115 @@
+{
+    "accounts_urls": [
+        {
+            "mark": "",
+            "url": "",
+            "tab": "",
+            "earliest": "",
+            "latest": "",
+            "enable": true
+        }
+    ],
+    "accounts_urls_tiktok": [
+        {
+            "mark": "",
+            "url": "",
+            "tab": "",
+            "earliest": "",
+            "latest": "",
+            "enable": true
+        }
+    ],
+    "mix_urls": [
+        {
+            "mark": "",
+            "url": "",
+            "enable": true
+        }
+    ],
+    "mix_urls_tiktok": [
+        {
+            "mark": "",
+            "url": "",
+            "enable": true
+        }
+    ],
+    "owner_url": {
+        "mark": "",
+        "url": "",
+        "uid": "",
+        "sec_uid": "",
+        "nickname": ""
+    },
+    "owner_url_tiktok": null,
+    "root": "",
+    "folder_name": "Download",
+    "name_format": "type nickname desc",
+    "date_format": "%Y-%m-%d %H:%M:%S",
+    "split": "-",
+    "folder_mode": false,
+    "music": false,
+    "truncate": 50,
+    "storage_format": "",
+    "cookie": {
+        "SEARCH_RESULT_LIST_TYPE": "%22single%22",
+        "ttwid": "1%7C_fm4gaJJdr7E88heyVkxJRAXxeNvFFcdWTKTwZJyfv0%7C1747817653%7Cb268f8a925a544470fbfad30364e0d091e1ad7bdefc5c600439031f058b74f33",
+        "hevc_supported": "true",
+        "UIFID": "43978cd9ea816a7d34a6416f01236307be591e58382e2d59dc373240de143c2126ed3e670d553e1b0e6217e83b8f50274867e11497d986e09211a9cc333750540a4a30f24ef2a324d26902613d6ef1610bdfbcf4d648253fdde6dc834ddde872c8010fc27e248e9b45d775a25e9dc81715777d9178a25651ba8b7bc41d9f116a4be8229819c27fad09b14bd590194efacf47ae6071ccdb139e4dc2956d61e1da980869eb199612e41783aee275f0412f0b7976be57c56fc2d292be0d0a667074",
+        "is_dash_user": "1",
+        "volume_info": "%7B%22isUserMute%22%3Afalse%2C%22isMute%22%3Afalse%2C%22volume%22%3A0.5%7D",
+        "strategyABtestKey": "%221748432348.497%22",
+        "passport_csrf_token": "2e8291b7e5e0dcd3fc1a31cc771d2cc6",
+        "passport_csrf_token_default": "2e8291b7e5e0dcd3fc1a31cc771d2cc6",
+        "__security_mc_1_s_sdk_crypt_sdk": "d58482e2-46a0-8374",
+        "bd_ticket_guard_client_web_domain": "2",
+        "FORCE_LOGIN": "%7B%22videoConsumedRemainSeconds%22%3A180%2C%22isForcePopClose%22%3A1%7D"
+    },
+    "cookie_tiktok": "",
+    "dynamic_cover": false,
+    "static_cover": false,
+    "proxy": "",
+    "proxy_tiktok": "",
+    "twc_tiktok": "",
+    "download": true,
+    "max_size": 0,
+    "chunk": 2097152,
+    "timeout": 10,
+    "max_retry": 5,
+    "max_pages": 0,
+    "run_command": "",
+    "ffmpeg": "",
+    "douyin_platform": true,
+    "tiktok_platform": true,
+    "browser_info": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+        "pc_libra_divert": "Windows",
+        "browser_platform": "Win32",
+        "browser_name": "Chrome",
+        "browser_version": "136.0.0.0",
+        "engine_name": "Blink",
+        "engine_version": "136.0.0.0",
+        "os_name": "Windows",
+        "os_version": "10",
+        "webid": ""
+    },
+    "browser_info_tiktok": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+        "app_language": "zh-Hans",
+        "browser_language": "zh-SG",
+        "browser_name": "Mozilla",
+        "browser_platform": "Win32",
+        "browser_version": "5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+        "language": "zh-Hans",
+        "os": "windows",
+        "priority_region": "CN",
+        "region": "US",
+        "tz_name": "Asia/Shanghai",
+        "webcast_language": "zh-Hans",
+        "device_id": ""
+    },
+    "tiktok_account_settings": [
+        {"sec_user_id": "MS4wLjABAAAAIqOcUlkHRYn3R9QrxuXwCrQbarxTKLqYNDByv_hGbGU", "cookie_file": "cookies_sarahluang2.txt"},
+        {"sec_user_id": "MS4wLjABAAAAfeAVsklc4_BZ6mK4hGQV7ZXMX2-UrIxKzijhHp5CCp0", "cookie_file": "cookies_jessyyosita.txt"},
+        {"sec_user_id": "MS4wLjABAAAA46ivE4GndBQBZ6xA_9r57AUZhSaBjaSBeSDQJLtKzeHJfo3ER2Hb69INRXyGoJwi", "cookie_file": "cookies_krabanglat.txt"}
+    ]
+}
