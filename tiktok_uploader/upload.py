@@ -220,7 +220,7 @@ def upload_videos(
                 *args,
                 **kwargs,
             )
-        except Exception as exception:
+        except Exception as e:
             logger.error("Failed to upload %s", path)
             traceback.print_exc()
             failed.append(video)
