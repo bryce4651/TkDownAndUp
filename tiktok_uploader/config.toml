@@ -8,7 +8,7 @@ valid_path_names = ["path", "filename", "video", "video_path"]
 valid_descriptions = ["description", "desc", "caption"]
 
 # Selenium Webdriver Waits
-implicit_wait = 5  # seconds
+implicit_wait = 60  # seconds
 explicit_wait = 60 # seconds
 uploading_wait = 180 # seconds
 

@@ -276,12 +276,18 @@ def complete_upload_form(
     if not skip_split_window:
         _remove_split_window(driver)
     _set_interactivity(driver, **kwargs)
-    _set_description(driver, description)
-    if schedule:
-        _set_schedule_video(driver, schedule)
-    if product_id:
-        _add_product_link(driver, product_id)
-    _post_video(driver)
+    try:
+        _set_description(driver, description)
+        if schedule:
+            _set_schedule_video(driver, schedule)
+        if product_id:
+            _add_product_link(driver, product_id)
+        _post_video(driver)
+    except Exception as e:
+        print(driver.current_url)
+        print(driver.page_source)
+        raise e
+
 
 
 def _go_to_upload(driver) -> None:
@@ -773,7 +779,8 @@ def _post_video(driver) -> None:
     post_confirmation = EC.presence_of_element_located(
         (By.XPATH, config["selectors"]["upload"]["post_confirmation"])
     )
-    WebDriverWait(driver, config["explicit_wait"]).until(post_confirmation)
+    redirect_success = lambda d: "content" in d.current_url or "creator" in d.current_url
+    WebDriverWait(driver, config["explicit_wait"]).until(redirect_success)
 
     logger.debug(green("Video posted successfully"))
 

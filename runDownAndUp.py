@@ -22,7 +22,7 @@ async def run_task(downloader: TikTokDownloader, sec_user_id: str, cookie_file: 
             # count=10,
         )
         api_server = APIServer(downloader.parameter, downloader.database)
-        await asyncio.sleep(random.randint(1, 30)*3)
+        # await asyncio.sleep(random.randint(1, 30)*3)
         resp = await api_server.handle_account(acc)
         if len(resp.data) == 0:
             print("未找到任何作品")
@@ -30,23 +30,24 @@ async def run_task(downloader: TikTokDownloader, sec_user_id: str, cookie_file: 
         i = 0
         for data in resp.data:
             i += 1
-            if i < 3:
+            if i < 10:
                 continue
             _id = data["id"]
             filename = f"{data['type']}-{data['nickname']}-{data['desc']}.mp4"
             try:
-                await asyncio.sleep(random.randint(5, 300)*3)
+                # await asyncio.sleep(random.randint(5, 300)*3)
                 res = await api_server.detail_inquire([_id])
             except ExistedError:
                 print("===>skip file: ", filename)
                 continue
             await asyncio.sleep(10)
+            file_path = f'Download/{filename}'
             print("====> filename:", filename)
             video = {
-                'video': f'Download/{filename}',
+                'video': file_path,
                 'description': data["desc"]
             }
-            if not os.path.exists(f'Download/{filename}'):
+            if not os.path.exists(file_path):
                 continue
             auth = AuthBackend(cookies_str=cookie_file)
             failed_videos = upload_videos(
@@ -56,8 +57,8 @@ async def run_task(downloader: TikTokDownloader, sec_user_id: str, cookie_file: 
 
             for video in failed_videos:  # each input video object which failed
                 print(f"{video['video']} with description {video['description']} failed")
-            if os.path.exists(filename):
-                os.remove(filename)
+            if os.path.exists(file_path):
+                os.remove(file_path)
                 print("文件已删除:", filename)
             else:
                 print("文件不存在:", filename)
